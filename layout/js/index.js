@@ -11,6 +11,9 @@ $(function() {
 				if(result.indexOf("please") !== -1) {
 					alert("invalid link");
 				}
+				else if(result.indexOf("error download audio form link") !== -1) {
+					alert("error download audio form link");
+				}
 				else {
 					var str = "";
 					if(response["file_arr"]) {

@@ -40,18 +40,17 @@
 			$href_str = str_replace(")", "", $href_str);
 			$href_arr = explode(",", $href_str);
 			$href_str = str_replace("javascript:playAudioBarPlay", "", $href_arr[0]);
-			$audio_file = download_audio($url_dir . 'aumpo/' . $href_str);
-			
 			if(!file_exists("audio/" . $href_str))
 			{
-				if(!empty($audio_file))
-					file_put_contents("audio/" . $href_str, $audio_file);
-				else
-					echo "no audio file found";
+				$audio_file = download_audio($url_dir . 'aumpo/' . $href_str);
+				file_put_contents("audio/" . $href_str, $audio_file);
+				$file_size = filesize("audio/" . $href_str, $audio_file);
+				if($file_size === false || $file_size <= 0)
+					$result["result"] = "error download audio form link";
 			}
-			
+
 			$result["file_arr"][$count]["file_path"] = "../audio/" . $href_str;
-			$count++;
+			$count++;	
 		}
 	}
 	
